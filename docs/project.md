@@ -1,50 +1,4 @@
-# Objetivo
-
-Maximizar tua constância semanal nas categorias principais da tua rotina, com:
-
-cobrança firme
-remanejamento inteligente
-proteção do sono
-memória do teu comportamento
-adaptação progressiva
-
-O que ele é: Um operador da tua rotina.
-
-O que ele não é:
-terapeuta
-amigo motivacional
-chatbot aberto que conversa sobre qualquer coisa
-planner perfeito que exige dias perfeitos
-agente “mágico” que adivinha teu estado o tempo todo
-
-# Problema
-
-O problema não é falta de intenção.
-É o intervalo entre:
-
-saber o que deve ser feito
-executar mesmo sem vontade
-remanejar sem se enganar
-não deixar um atraso virar desistência
-
-Então o produto existe para resolver:
-
-procrastinação por atrito
-negociação interna demais
-adiamento vago
-quebra de sequência
-decisões ruins de curto prazo que sabotam a semana
-
-# Solução 
-
-**Filosofia fixa do co-piloto:**
-
-tom firme, direto e respeitoso
-nunca aceitar adiamento vago
-sempre oferecer opções fechadas
-proteger o sono
-priorizar constância sobre conforto imediato
-tarefa não some; muda de forma
+# Versão 1
 
 # Software Requirements
 
@@ -52,81 +6,59 @@ tarefa não some; muda de forma
 
 FR01. O sistema deve permitir o cadastro de múltiplos usuários.
 
-FR02. O sistema deve permitir que cada usuário cadastre suas próprias categorias de rotina.
+FR02. O sistema deve permitir que cada usuário cadastre suas próprias categorias.
 
-FR03. O sistema deve permitir que cada usuário cadastre blocos recorrentes, incluindo dias da semana, horários e categoria associada.
+FR03. O sistema deve permitir que categorias sejam marcadas como âncoras da rotina.
 
-FR04. O sistema deve permitir que cada usuário cadastre compromissos pontuais em datas e horários específicos.
+FR04. O sistema deve permitir que cada usuário cadastre blocos recorrentes, incluindo dias da semana, horários e categoria associada.
 
-FR05. O sistema deve permitir que cada usuário configure políticas por categoria ou bloco, incluindo duração ideal, mínima e emergencial.
+FR05. O sistema deve permitir que cada usuário cadastre tasks independentes de blocos recorrentes.
 
-FR06. O sistema deve permitir que o usuário defina atividades ou blocos como âncoras da rotina.
+FR06. O sistema deve permitir que uma task tenha categoria associada de forma opcional.
 
-FR07. O sistema deve gerar automaticamente a visão diária de cada usuário com base em blocos recorrentes, compromissos pontuais, pendências e ajustes realizados.
+FR07. O sistema deve armazenar usuários, categorias, blocos recorrentes e tasks de forma separada por usuário.
 
-FR08. O sistema deve enviar uma mensagem no início de cada tarefa ou bloco planejado.
+FR08. O sistema deve permitir a consulta dos usuários cadastrados.
 
-FR09. O sistema deve apresentar, na mensagem da tarefa ou bloco, opções de manejo como iniciar, reduzir duração, adiar com horário definido ou concluir.
+FR09. O sistema deve permitir a consulta das categorias cadastradas de um usuário.
 
-FR10. O sistema deve permitir que o usuário informe conflitos, imprevistos ou mudanças que afetem sua rotina.
+FR10. O sistema deve permitir a consulta dos blocos recorrentes cadastrados de um usuário.
 
-FR11. O sistema deve recalcular ou sugerir remanejamento de tarefas ou blocos quando houver conflito, considerando as regras configuradas do usuário.
+FR11. O sistema deve permitir a consulta das tasks cadastradas de um usuário.
 
-FR12. O sistema deve permitir alterar apenas uma ocorrência específica de um bloco recorrente sem modificar a recorrência base.
+FR12. O sistema deve registrar o status final de cada task.
 
-FR13. O sistema deve permitir alterar permanentemente um bloco recorrente quando o usuário indicar uma mudança estrutural em sua rotina.
+FR13. O sistema deve gerar uma visão diária simples com base nos blocos recorrentes e nas tasks cadastradas para uma data.
 
-FR14. O sistema deve registrar o status final de cada tarefa ou bloco diário, incluindo feito, feito mínimo, feito emergencial, adiado ou não realizado.
-
-FR15. O sistema deve armazenar o histórico de interações, tarefas, blocos e resultados de cada usuário separadamente.
-
-FR16. O sistema deve gerar um fechamento diário com o resumo das atividades realizadas, pendentes e remanejadas.
-
-FR17. O sistema deve interpretar mensagens livres do usuário para identificar intenções como adiamento, conflito de agenda, conclusão, exceção pontual ou mudança permanente.
-
-FR18. O sistema deve solicitar esclarecimentos ao usuário quando houver ambiguidade relevante que impeça a interpretação segura de uma configuração ou alteração de rotina.
-
-FR19. O sistema deve associar cada usuário ao seu respectivo canal de comunicação no Telegram.
-
-FR20. O sistema deve respeitar as restrições de sono do usuário ao sugerir reduções ou remanejamentos de tarefas.
-
-FR21. O sistema deve considerar a prioridade das âncoras ao sugerir reorganizações da rotina.
+FR14. O sistema deve associar cada usuário ao seu respectivo canal de comunicação no Telegram.
 
 ## Non-functional Requirements
 
-**Qualidade de serviço**
+Qualidade de serviço
 
 NFR01. O sistema deve suportar múltiplos usuários com isolamento de dados entre eles.
 
-NFR02. As mensagens programadas devem ser enviadas com atraso máximo de X segundos em relação ao horário planejado.
+NFR02. O sistema deve persistir os dados de usuários, categorias, blocos recorrentes e tasks de forma confiável, evitando perda de registros em caso de reinício da aplicação.
 
-NFR03. O sistema deve persistir os dados de usuários, blocos, tarefas e histórico de forma confiável, evitando perda de registros em caso de reinício da aplicação.
+NFR03. O sistema deve manter o estilo do copiloto fixo e consistente para todos os usuários.
 
-NFR04. O sistema deve manter o estilo do copiloto fixo e consistente para todos os usuários.
+Segurança e integridade
 
-NFR05. O sistema deve manter consistência entre blocos recorrentes, compromissos pontuais, exceções diárias e alterações permanentes.
+NFR04. O sistema deve garantir que um usuário não possa acessar dados de outro usuário.
 
-**Segurança e integridade**
+NFR05. O sistema deve validar os dados recebidos antes de persisti-los no banco.
 
-NFR06. O sistema deve garantir que um usuário não possa acessar dados de outro usuário.
+Restrições tecnológicas
 
-NFR07. O sistema deve validar entradas recebidas do Telegram e das integrações externas antes de processá-las.
+NFR06. O backend deve ser implementado com FastAPI.
 
-NFR08. O sistema deve evitar suposições em situações ambíguas que possam comprometer a integridade da rotina do usuário.
+NFR07. O banco de dados deve ser PostgreSQL.
 
-**Restrições tecnológicas**
+NFR08. O canal de comunicação da V1 deve ser Telegram Bot.
 
-NFR09. O backend deve ser implementado com FastAPI.
+NFR09. Caso a OpenAI API seja utilizada na V1, ela deve ser usada apenas para parsing de mensagens e verbalização de respostas.
 
-NFR10. O banco de dados deve ser PostgreSQL.
-
-NFR11. O canal de comunicação da V1 deve ser Telegram Bot.
-
-NFR12. Os agendamentos da V1 devem ser implementados com APScheduler.
-
-NFR13. A OpenAI API deve ser utilizada apenas para parsing de mensagens e verbalização de respostas, com structured outputs e/ou function calling.
-
-NFR14. As decisões centrais de agenda, recorrência, exceção e remanejamento devem seguir regras de negócio implementadas no sistema, não dependendo exclusivamente da IA.
+NFR10. As regras centrais de cadastro, vínculo entre entidades e geração da visão diária devem ser implementadas no sistema, sem depender exclusivamente da IA.
 
 # Domain UML Class Diagram
 
