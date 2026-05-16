@@ -4,61 +4,55 @@
 
 ## Functional Requirements
 
-FR01. O sistema deve permitir o cadastro de múltiplos usuários.
+FR01. O sistema deve permitir o cadastro e gerenciamento de um usuário principal.
 
-FR02. O sistema deve permitir que cada usuário cadastre suas próprias categorias.
+FR02. O sistema deve permitir o cadastro de categorias.
 
 FR03. O sistema deve permitir que categorias sejam marcadas como âncoras da rotina.
 
-FR04. O sistema deve permitir que cada usuário cadastre blocos recorrentes, incluindo dias da semana, horários e categoria associada.
+FR04. O sistema deve permitir o cadastro de blocos recorrentes, incluindo dias da semana, horários e categoria associada.
 
-FR05. O sistema deve permitir que cada usuário cadastre tasks independentes de blocos recorrentes.
+FR05. O sistema deve permitir o cadastro de tasks independentes de blocos recorrentes.
 
 FR06. O sistema deve permitir que uma task tenha categoria associada de forma opcional.
 
-FR07. O sistema deve armazenar usuários, categorias, blocos recorrentes e tasks de forma separada por usuário.
+FR07. O sistema deve armazenar categorias, blocos recorrentes e tasks do usuário.
 
-FR08. O sistema deve permitir a consulta dos usuários cadastrados.
+FR08. O sistema deve permitir a consulta das categorias cadastradas.
 
-FR09. O sistema deve permitir a consulta das categorias cadastradas de um usuário.
+FR09. O sistema deve permitir a consulta dos blocos recorrentes cadastrados.
 
-FR10. O sistema deve permitir a consulta dos blocos recorrentes cadastrados de um usuário.
+FR10. O sistema deve permitir a consulta das tasks cadastradas.
 
-FR11. O sistema deve permitir a consulta das tasks cadastradas de um usuário.
+FR11. O sistema deve registrar o status final de cada task.
 
-FR12. O sistema deve registrar o status final de cada task.
+FR12. O sistema deve gerar uma visão diária simples com base nos blocos recorrentes e nas tasks cadastradas para uma data.
 
-FR13. O sistema deve gerar uma visão diária simples com base nos blocos recorrentes e nas tasks cadastradas para uma data.
-
-FR14. O sistema deve associar cada usuário ao seu respectivo canal de comunicação no Telegram.
+FR13. O sistema deve associar o usuário ao seu canal de comunicação no Telegram.
 
 ## Non-functional Requirements
 
-Qualidade de serviço
+### Qualidade de serviço
 
-NFR01. O sistema deve suportar múltiplos usuários com isolamento de dados entre eles.
+NFR01. O sistema deve persistir os dados de categorias, blocos recorrentes e tasks de forma confiável, evitando perda de registros em caso de reinício da aplicação.
 
-NFR02. O sistema deve persistir os dados de usuários, categorias, blocos recorrentes e tasks de forma confiável, evitando perda de registros em caso de reinício da aplicação.
+NFR02. O sistema deve manter o estilo do copiloto fixo e consistente.
 
-NFR03. O sistema deve manter o estilo do copiloto fixo e consistente para todos os usuários.
+### Segurança e integridade
 
-Segurança e integridade
+NFR03. O sistema deve validar os dados recebidos antes de persisti-los no banco.
 
-NFR04. O sistema deve garantir que um usuário não possa acessar dados de outro usuário.
+### Restrições tecnológicas
 
-NFR05. O sistema deve validar os dados recebidos antes de persisti-los no banco.
+NFR04. O backend deve ser implementado com FastAPI.
 
-Restrições tecnológicas
+NFR05. O banco de dados deve ser PostgreSQL.
 
-NFR06. O backend deve ser implementado com FastAPI.
+NFR06. O canal de comunicação da V1 deve ser Telegram Bot.
 
-NFR07. O banco de dados deve ser PostgreSQL.
+NFR07. Caso a OpenAI API seja utilizada na V1, ela deve ser usada apenas para parsing de mensagens e verbalização de respostas.
 
-NFR08. O canal de comunicação da V1 deve ser Telegram Bot.
-
-NFR09. Caso a OpenAI API seja utilizada na V1, ela deve ser usada apenas para parsing de mensagens e verbalização de respostas.
-
-NFR10. As regras centrais de cadastro, vínculo entre entidades e geração da visão diária devem ser implementadas no sistema, sem depender exclusivamente da IA.
+NFR08. As regras centrais de cadastro, vínculo entre entidades e geração da visão diária devem ser implementadas no sistema, sem depender exclusivamente da IA.
 
 # Domain UML Class Diagram
 
