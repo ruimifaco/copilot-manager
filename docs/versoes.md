@@ -27,7 +27,7 @@ Ter um backend mínimo funcional, com banco de dados, modelagem inicial, leitura
 
 ### Escopo principal
 
-* múltiplos usuários;
+* único usuário;
 * categorias personalizáveis por usuário;
 * categorias podem ser âncoras (`is_anchor`);
 * blocos recorrentes;
@@ -39,7 +39,7 @@ Ter um backend mínimo funcional, com banco de dados, modelagem inicial, leitura
 
 ### O que a V1 deve fazer
 
-* cadastrar usuários;
+* cadastrar usuário;
 * cadastrar categorias;
 * cadastrar blocos recorrentes;
 * cadastrar tasks soltas;
@@ -85,7 +85,8 @@ Ter um backend mínimo funcional, com banco de dados, modelagem inicial, leitura
 * painel bonito;
 * autenticação completa;
 * multi-agent;
-* memória vetorial.
+* memória vetorial.''
+* muúltiplos usuários
 
 ---
 
