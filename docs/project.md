@@ -1,8 +1,8 @@
 # Versão 1
 
-# Software Requirements
+## Software Requirements
 
-## Functional Requirements
+### Functional Requirements
 
 FR01. O sistema deve permitir o cadastro e gerenciamento de um usuário principal.
 
@@ -30,19 +30,19 @@ FR12. O sistema deve gerar uma visão diária simples com base nos blocos recorr
 
 FR13. O sistema deve associar o usuário ao seu canal de comunicação no Telegram.
 
-## Non-functional Requirements
+### Non-functional Requirements
 
-### Qualidade de serviço
+**Qualidade de serviço**
 
 NFR01. O sistema deve persistir os dados de categorias, blocos recorrentes e tasks de forma confiável, evitando perda de registros em caso de reinício da aplicação.
 
 NFR02. O sistema deve manter o estilo do copiloto fixo e consistente.
 
-### Segurança e integridade
+**Segurança e integridade**
 
 NFR03. O sistema deve validar os dados recebidos antes de persisti-los no banco.
 
-### Restrições tecnológicas
+**Restrições tecnológicas**
 
 NFR04. O backend deve ser implementado com FastAPI.
 
