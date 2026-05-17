@@ -54,27 +54,62 @@ NFR07. Caso a OpenAI API seja utilizada na V1, ela deve ser usada apenas para pa
 
 NFR08. As regras centrais de cadastro, vínculo entre entidades e geração da visão diária devem ser implementadas no sistema, sem depender exclusivamente da IA.
 
-# Domain UML Class Diagram
+## Domain UML Class Diagram
 
+<img src="./assets/classe-copiloto.png" alt="Descrição da imagem">
 
-<img src="./assets/UML_v1.png" alt="Descrição da imagem">
+```mermaid
+---
+title: Co-piloto V1
+---
+classDiagram
+    User "1" -- "0..*" Category : has
+    User "1" -- "0..*" RecurringBlock : has
+    User "1" -- "0..*" Task : has
+    User "1" -- "0..*" DailyPlan : sees
 
-- User: a pessoa que usa o copiloto.
-- Category: tipo/agrupamento da atividade. Ex.: Sono, Treino, Alimentação, Aula, Leitura.
-- isAnchor: marca categorias tratadas com mais rigor pelo sistema.
-- Policy: define como aquela categoria deve ser tratada.
-- RecurringBlock: algo recorrente na rotina.
-- OneTimeCommitment: algo pontual, com data específica.
-- DailyPlan: a visão do dia.
-- Task: a ocorrência concreta que entra naquele dia e recebe o status final.
-- InteractionLog: histórico das interações relevantes com o copiloto.
+    Category "1" -- "0..*" RecurringBlock : classifies
+    Category "0..1" -- "0..*" Task : classifies
 
-Tem 3 pontos que eu deixaria em mente:
+    DailyPlan "1" -- "0..*" Task : shows
 
-- Task nasce de uma origem ou de um RecurringBlock ou de um OneTimeCommitment
-- Category continua existindo, mas não é o centro de tudo. Ela organiza e classifica. A agenda real vem dos blocos e compromissos.
-- Âncora não virou classe virou propriedade de Category e isso ficou bem mais limpo pra V1
+    class User {
+        - id
+        - name
+        - email
+        - telegramAccount
+    }
 
-# MER
+    class Category {
+        - id
+        - name
+        - isAnchor
+    }
 
-# Modelo lógico relacional
+    class RecurringBlock {
+        - id
+        - title
+        - daysOfWeek
+        - startTime
+        - endTime
+        - isFixed
+    }
+
+    class Task {
+        - id
+        - title
+        - taskDate
+        - plannedStartTime
+        - plannedEndTime
+        - actualStartTime
+        - actualEndTime
+        - description
+        - finalStatus
+    }
+
+    class DailyPlan {
+        - selectedDay
+    }
+```
+
+## Modelo lógico relacional
