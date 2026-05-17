@@ -56,7 +56,7 @@ NFR08. As regras centrais de cadastro, vínculo entre entidades e geração da v
 
 ## Domain UML Class Diagram
 
-<img src="./assets/classe-copiloto.png" alt="Descrição da imagem">
+<img src="./assets/classe_v1.png" alt="Descrição da imagem">
 
 ```mermaid
 ---
@@ -113,3 +113,52 @@ classDiagram
 ```
 
 ## Modelo lógico relacional
+
+<img src="./assets/MLR_v1.png" alt="Descrição da imagem">
+
+```mermaid
+erDiagram
+    USERS {
+        INT id PK
+        VARCHAR user_name
+        VARCHAR email UK
+    }
+
+    CATEGORIES {
+        INT id PK
+        VARCHAR category_name
+        BOOLEAN is_anchor
+        INT user_id FK
+    }
+
+    RECURRING_BLOCKS {
+        INT id PK
+        VARCHAR title
+        TEXT days_of_week
+        TIME start_time
+        TIME end_time
+        BOOLEAN is_fixed
+        INT user_id FK
+        INT category_id FK
+    }
+
+    TASKS {
+        INT id PK
+        VARCHAR title
+        DATE task_date
+        TIME planned_start_time
+        TIME planned_end_time
+        TIME actual_start_time
+        TIME actual_end_time
+        VARCHAR final_status
+        INT user_id FK
+        INT category_id FK
+    }
+
+    USERS ||--o{ CATEGORIES : has
+    USERS ||--o{ RECURRING_BLOCKS : has
+    USERS ||--o{ TASKS : has
+
+    CATEGORIES ||--o{ RECURRING_BLOCKS : classifies
+    CATEGORIES o|--o{ TASKS : classifies
+```
