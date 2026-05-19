@@ -1,5 +1,5 @@
 from fastapi import FastAPI # Aqui, FastAPI cria a aplicação web/API que vai receber requisições HTTP.
-from app.db.config import engine
+from app.db.connection import engine
 from sqlalchemy import text
 
 app = FastAPI(title="Co-piloto API") # Eu vou definir a api como app pra não ter que escrever toda vez

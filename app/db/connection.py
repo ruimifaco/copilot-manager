@@ -1,4 +1,4 @@
-# config.py: Ler a URL do banco no .env e criar um objeto de conexão reutilizável para a API.
+# connection.py: Ler a URL do banco no .env e criar um objeto de conexão reutilizável para a API.
 
 import os # Ferramenta nativa do Python pra mexer com o sistema operacional
 from dotenv import load_dotenv # Ler o que tem no .env
