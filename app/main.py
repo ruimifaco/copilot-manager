@@ -1,6 +1,10 @@
+# Aqui é que deve ser criada o framework da API
+# Centraliza as primeiras rotas
+# Fica aqui apenas a configuração global
+
 from fastapi import FastAPI # Aqui, FastAPI cria a aplicação web/API que vai receber requisições HTTP.
-from app.db.connection import engine
-from sqlalchemy import text
+from app.db.connection import engine # importa a variável do outro arquivo
+from sqlalchemy import text # importa a função de texto do SQLAlchemy
 
 app = FastAPI(title="Co-piloto API") # Eu vou definir a api como app pra não ter que escrever toda vez
 
@@ -8,15 +12,15 @@ app = FastAPI(title="Co-piloto API") # Eu vou definir a api como app pra não te
 def root(): # defino a função de nome "root". Essa função roda quando alguém acessa a rota GET /
     return {"message": "Co-piloto API is running"} # Peço pra retornar isso lá na web
 
-@app.get("/health/db")
+@app.get("/health/db") # criação da rota que atesta a saúde da API
 def test_connection():
-    with engine.connect() as conn:
-        result = conn.execute(text("SELECT 1")).scalar()
+    with engine.connect() as conn: # "with": fecha a conexão com o banco automaticamente; "engine.connect()" inicia  conexão com o banco; "conn" é apelido
+        result = conn.execute(text("SELECT 1")).scalar() # apelido executa em texto SELECT. O scalar () pega da tabela apenas o valor puro, transformando em um número comum no Python
     return {"status": "conexão feita com sucesso", "valor": result}
 
-@app.get("/categories")
+@app.get("/categories") 
 def list_categories():
     with engine.connect() as conn:
-        db_result = conn.execute(text("SELECT id, category_name, is_anchor, user_id FROM categories ORDER BY id;"))
-        categories = db_result.mappings().all()
+        db_result = conn.execute(text("SELECT id, category_name, is_anchor, user_id FROM categories ORDER BY id;")) # .scalar() ausente porque eu pedi a tabela inteira
+        categories = db_result.mappings().all() # Transforma a tabela que foi pedida em uma lista de dicionários porque Python não lê direito se fosse direto
     return{"status": "ok", "valor": categories}
