@@ -5,14 +5,8 @@
 from fastapi import FastAPI # Aqui, FastAPI cria a aplicação web/API que vai receber requisições HTTP.
 from app.db.connection import engine # importa a variável do outro arquivo
 from sqlalchemy import text # importa a função de texto do SQLAlchemy
-from pydantic import BaseModel
 
 app = FastAPI(title="Co-piloto API") # Eu vou definir a api como app pra não ter que escrever toda vez
-
-class CategoryCreate(BaseModel):
-    category_name: str
-    is_anchor: bool = False
-    user_id: int
 
 @app.get("/") # pra app, quero fazer um GET e quero que o endereço da rota seja só "/"
 def root(): # defino a função de nome "root". Essa função roda quando alguém acessa a rota GET /
@@ -23,17 +17,3 @@ def test_connection():
     with engine.connect() as conn: # "with": fecha a conexão com o banco automaticamente; "engine.connect()" inicia  conexão com o banco; "conn" é apelido
         result = conn.execute(text("SELECT 1")).scalar() # apelido executa em texto SELECT. O scalar () pega da tabela apenas o valor puro, transformando em um número comum no Python
     return {"status": "conexão feita com sucesso", "valor": result}
-
-@app.get("/categories") 
-def list_categories():
-    with engine.connect() as conn:
-        db_result = conn.execute(text("SELECT id, category_name, is_anchor, user_id FROM categories ORDER BY id;")) # .scalar() ausente porque eu pedi a tabela inteira
-        categories = db_result.mappings().all() # Transforma a tabela que foi pedida em uma lista de dicionários porque Python não lê direito se fosse direto
-    return {"status": "ok", "valor": categories}
-
-@app.post("/categories")
-def insert_category(category: CategoryCreate):
-    with engine.begin() as conn: # Abre uma transação. Se der tudo bem ele salva no banco (COMMIT). Se não, desfaz tudo(ROLLBACK).
-        category_insert = conn.execute(text("INSERT INTO categories (category_name, is_anchor, user_id) VALUES (:category_name, :is_anchor, :user_id) RETURNING id, category_name, is_anchor, user_id;"), {"category_name": category.category_name, "is_anchor": category.is_anchor, "user_id": category.user_id})
-        insert_result = category_insert.mappings().one()
-    return {"status": "ok", "valor": insert_result}
