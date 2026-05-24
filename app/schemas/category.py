@@ -5,3 +5,7 @@ class CategoryCreate(BaseModel):
     category_name: str
     is_anchor: bool = False
     user_id: int
+
+class CategoryResponse(CategoryCreate):
+    id: int
+
