@@ -12,3 +12,6 @@ class TaskCreate(BaseModel):
     final_status: str
     user_id: int
     category_id: int
+
+class TaskResponse(BaseModel):
+    id: int
