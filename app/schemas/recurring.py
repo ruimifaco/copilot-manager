@@ -9,3 +9,6 @@ class recurringBlocks(BaseModel):
     is_fixed: bool = True
     user_id: int
     category_id: int
+
+class blocksResponse(BaseModel):
+    id: int

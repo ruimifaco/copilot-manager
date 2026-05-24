@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from sqlalchemy import text
 from app.schemas.recurring import recurringBlocks
 from app.db.connection import engine
-
+from app.schemas.recurring import blocksResponse
 
 
 router = APIRouter()
@@ -14,7 +14,7 @@ def list_Blocks():
         blocks = db_result.mappings().all()
     return{"status": "ok", "value": blocks}
 
-@router.post("/recurring")
+@router.post("/recurring", response_model=blocksResponse )
 def insert_blocks(recurring: recurringBlocks):
     with engine.begin() as conn:
         block_insert = conn.execute(text("INSERT INTO recurring_blocks (title, days_of_week, start_time, end_time, is_fixed, user_id, category_id) VALUES (:title, :days_of_week, :start_time, :end_time, :is_fixed, :user_id, :category_id) RETURNING id, title, days_of_week, start_time, end_time, is_fixed, user_id, category_id;"), {"title": recurring.title, "days_of_week": recurring.days_of_week, "start_time": recurring.start_time, "end_time": recurring.end_time, "is_fixed": recurring.is_fixed, "user_id": recurring.user_id, "category_id": recurring.category_id})
