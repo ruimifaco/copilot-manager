@@ -5,8 +5,12 @@
 from fastapi import FastAPI # Aqui, FastAPI cria a aplicação web/API que vai receber requisições HTTP.
 from app.db.connection import engine # importa a variável do outro arquivo
 from sqlalchemy import text # importa a função de texto do SQLAlchemy
+from app.api.categories import router as categories_router
+from app.api.tasks import router as tasks_router
 
 app = FastAPI(title="Co-piloto API") # Eu vou definir a api como app pra não ter que escrever toda vez
+app.include_router(categories_router)
+app.include_router(tasks_router)
 
 @app.get("/") # pra app, quero fazer um GET e quero que o endereço da rota seja só "/"
 def root(): # defino a função de nome "root". Essa função roda quando alguém acessa a rota GET /
