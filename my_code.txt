@@ -1,19 +1,19 @@
+api/categories.py
+
 from app.schemas.category import CategoryResponse # Importa classe do schema de saída
 from app.db.connection import engine # importa a variável do outro arquivo
 from sqlalchemy import text # importa a função de texto do SQLAlchemy
 from app.schemas.category import CategoryCreate # Chama classe que herda de BaseModel
 from fastapi import APIRouter # Importa APIRouter (que serve pra expandir rota do main.py, porque app mora exclusivamente no main.py)
-from app.db.sql_api import get_category_sql
-from app.services.transform_data import transform_query_in_dict
-from app.repositories.db_connection import category_db_connection
 
 router = APIRouter()
 
 @router.get("/categories") # responsável por solicitar dados de uma categoria
 def list_categories():
-    result_before_transformation = category_db_connection(get_category_sql)
-    result_after_transformation = transform_query_in_dict(result_before_transformation)
-    return {"status": "ok", "valor": result_after_transformation}
+    with engine.connect() as conn:
+        db_result = conn.execute(text("SELECT id, category_name, is_anchor, user_id FROM categories ORDER BY id;")) # .scalar() ausente porque eu pedi a tabela inteira
+        categories = db_result.mappings().all() # Transforma a tabela que foi pedida em uma lista de dicionários porque Python não lê direito se fosse direto
+    return {"status": "ok", "valor": categories}
 
 @router.get("/categories/{id}")
 def list_categories_id(id: int):
@@ -28,3 +28,9 @@ def insert_category(category: CategoryCreate): # Aqui tá a classe que fica em s
         category_insert = conn.execute(text("INSERT INTO categories (category_name, is_anchor, user_id) VALUES (:category_name, :is_anchor, :user_id) RETURNING id, category_name, is_anchor, user_id;"), {"category_name": category.category_name, "is_anchor": category.is_anchor, "user_id": category.user_id})
         insert_result = category_insert.mappings().one()
     return {"status": "ok", "valor": insert_result}
+
+
+---
+
+
+
