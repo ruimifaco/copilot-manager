@@ -1,3 +1,8 @@
 
 
 get_category_sql = "SELECT id, category_name, is_anchor, user_id FROM categories ORDER BY id;"
+get_tasks_sql = "SELECT id, title, task_date, planned_start_time, planned_end_time, actual_start_time, actual_end_time, final_status, user_id, category_id FROM tasks ORDER BY id;"
+get_recurring_blocks_sql = "SELECT title, days_of_week, start_time, end_time, is_fixed, user_id, category_id FROM recurring_blocks ORDER BY id;"
+
+get_category_by_id_sql = "SELECT id, category_name, is_anchor, user_id FROM categories WHERE id = :id_searched;"
+

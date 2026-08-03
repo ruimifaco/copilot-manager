@@ -3,24 +3,19 @@ from app.db.connection import engine # importa a variável do outro arquivo
 from sqlalchemy import text # importa a função de texto do SQLAlchemy
 from app.schemas.category import CategoryCreate # Chama classe que herda de BaseModel
 from fastapi import APIRouter # Importa APIRouter (que serve pra expandir rota do main.py, porque app mora exclusivamente no main.py)
-from app.db.sql_api import get_category_sql
-from app.services.transform_data import transform_query_in_dict
-from app.repositories.db_connection import category_db_connection
+from app.repositories.category_data import get_all_categories
+from app.repositories.category_data import get_category_by_id
+
 
 router = APIRouter()
 
 @router.get("/categories") # responsável por solicitar dados de uma categoria
 def list_categories():
-    result_before_transformation = category_db_connection(get_category_sql)
-    result_after_transformation = transform_query_in_dict(result_before_transformation)
-    return {"status": "ok", "valor": result_after_transformation}
+    return {"status": "ok", "valor": get_all_categories()}
 
 @router.get("/categories/{id}")
 def list_categories_id(id: int):
-    with engine.connect() as conn:
-        categories_id = conn.execute(text("SELECT id, category_name, is_anchor, user_id FROM categories WHERE id = :id_searched"), {"id_searched": id})
-        id_result = categories_id.mappings().first() # mappings() transforma cada linha em um dicionário. all() manda devolver todos os registros.
-    return {"status": "ok", "value": id_result}
+    return {"status": "ok", "value": get_category_by_id(id)}
 
 @router.post("/categories", response_model=CategoryResponse) # responsável por inserir dados de uma categoria
 def insert_category(category: CategoryCreate): # Aqui tá a classe que fica em schemas
