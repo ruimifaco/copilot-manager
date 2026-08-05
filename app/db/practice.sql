@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     user_name VARCHAR(25) NOT NULL,
-    email VARCHAR(40) UNIQUE NOT NULL
+    email VARCHAR(40) UNIQUE NOT NULL,
+    telegram_user_id BIGINT UNIQUE
 );
 
 CREATE TABLE categories (
