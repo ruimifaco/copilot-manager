@@ -77,7 +77,7 @@ classDiagram
         - id
         - name
         - email
-        - telegramAccount
+        - telegramUserId
     }
 
     class Category {
@@ -122,6 +122,7 @@ erDiagram
         INT id PK
         VARCHAR user_name
         VARCHAR email UK
+        BIGINT telegram_user_id UK
     }
 
     CATEGORIES {
