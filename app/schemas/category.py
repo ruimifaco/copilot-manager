@@ -8,6 +8,3 @@ class CategoryCreate(BaseModel):
 
 class CategoryResponse(CategoryCreate):
     id: int
-    category_name: str
-    is_anchor: bool = False
-    user_id: int
