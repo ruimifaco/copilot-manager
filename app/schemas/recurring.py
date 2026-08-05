@@ -1,23 +1,16 @@
 # app/schemas: Nessa pasta ficam os Schemas do Pydantic (as classes que herdam de BaseModel). Schema é uma estrutura que organiza e define regras para dados
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import time
 
 class recurringBlocks(BaseModel):
-    title: str
-    days_of_week: str
+    title: str = Field(min_length=1, max_length=25)
+    days_of_week: str = Field(min_length=1)
     start_time: time
     end_time: time
     is_fixed: bool = True
-    user_id: int
-    category_id: int
+    user_id: int = Field(gt=0)
+    category_id: int = Field(gt=0)
 
-class blocksResponse(BaseModel):
-    id: int
-    title: str
-    days_of_week: str
-    start_time: time
-    end_time: time
-    is_fixed: bool = True
-    user_id: int
-    category_id: int
+class blocksResponse(recurringBlocks):
+    id: int = Field(gt=0)
