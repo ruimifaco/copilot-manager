@@ -10,16 +10,16 @@ from fastapi import status
 
 router = APIRouter()
 
-@router.get("/categories") # responsável por solicitar dados de uma categoria
+@router.get("/categories", response_model=list[CategoryResponse]) # responsável por solicitar dados de uma categoria
 def list_categories():
-    return {get_all_categories()}
+    return get_all_categories()
 
-@router.get("/categories/{id}")
+@router.get("/categories/{id}", response_model=CategoryResponse)
 def list_category_id(id: int):
     category_searched = get_category_by_id(id)
     if category_searched is None:
         raise HTTPException(status_code=404, detail="ID not found")
-    return {category_searched}
+    return category_searched
 
 @router.post("/categories", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED) # responsável por inserir dados de uma categoria
 def insert_category(category: CategoryCreate): # Aqui tá a classe que fica em schemas

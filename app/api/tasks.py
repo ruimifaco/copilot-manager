@@ -5,16 +5,16 @@ from app.repositories.task_data import get_all_tasks, get_task_by_id, insert_tas
 
 router = APIRouter() # Atribui APIRouter a palavra "router".
 
-@router.get ("/tasks")
+@router.get ("/tasks", response_model=list[TaskResponse])
 def list_tasks():
-    return {"status": "ok", "value": get_all_tasks()} # Isso é o que a API deve retornar em caso de sucesso
+    return get_all_tasks() # Isso é o que a API deve retornar em caso de sucesso
 
-@router.get("/tasks/{id}")
+@router.get("/tasks/{id}", response_model=TaskResponse)
 def list_task_id(id: int):
     task_searched = get_task_by_id(id)
     if task_searched is None:
         raise HTTPException(status_code=404, detail="ID not found")
-    return {"status": "ok", "value": task_searched}
+    return task_searched
 
 @router.post ("/tasks", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 def insert_task(task: TaskCreate):
