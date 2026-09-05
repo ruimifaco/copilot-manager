@@ -1,5 +1,3 @@
-# app/schemas: Nessa pasta ficam os Schemas do Pydantic (as classes que herdam de BaseModel). Schema é uma estrutura que organiza e deifine regras para dados
-
 from datetime import date
 from pydantic import BaseModel, Field
 from datetime import time

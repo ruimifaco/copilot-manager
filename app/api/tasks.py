@@ -1,13 +1,13 @@
-from app.schemas.tasks import TaskCreate # Importa as regras definidas para os dados que serão usados nesse arquivo. Aqui é o schema de entrada.
-from fastapi import APIRouter, HTTPException, status # app fica em main.py. Como tiramos a api de lá, precisamos expandir "app". Pra isso, usamos APIRouter.
-from app.schemas.tasks import TaskResponse # Importa as regras definidas pra saída do schema de Tasks
+from app.schemas.tasks import TaskCreate
+from fastapi import APIRouter, HTTPException, status
+from app.schemas.tasks import TaskResponse
 from app.repositories.task_data import get_all_tasks, get_task_by_id, insert_task_db
 
-router = APIRouter() # Atribui APIRouter a palavra "router".
+router = APIRouter()
 
 @router.get ("/tasks", response_model=list[TaskResponse])
 def list_tasks():
-    return get_all_tasks() # Isso é o que a API deve retornar em caso de sucesso
+    return get_all_tasks()
 
 @router.get("/tasks/{id}", response_model=TaskResponse)
 def list_task_id(id: int):
