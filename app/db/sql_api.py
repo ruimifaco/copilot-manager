@@ -13,3 +13,5 @@ post_task_sql = "INSERT INTO tasks (title, task_date, planned_start_time, planne
 post_recurring_block_sql = "INSERT INTO recurring_blocks (title, days_of_week, start_time, end_time, is_fixed, user_id, category_id) VALUES (:title, :days_of_week, :start_time, :end_time, :is_fixed, :user_id, :category_id) RETURNING id, title, days_of_week, start_time, end_time, is_fixed, user_id, category_id;"
 
 get_user_daily_plan_tasks_by_date_sql = "SELECT id, category_id, final_status, title, planned_start_time, planned_end_time FROM tasks WHERE user_id = :user_id AND task_date = :date_searched ORDER BY planned_start_time;"
+
+get_user_daily_plan_recurring_blocks_by_weekday_sql = "SELECT id, title, start_time, end_time, is_fixed, category_id FROM recurring_blocks WHERE user_id = :user_id AND :weekday_searched = ANY(string_to_array(days_of_week, ',')) ORDER BY start_time;"
